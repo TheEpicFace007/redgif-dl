@@ -20,5 +20,9 @@
     "youtube-dl"
   ],
   "author": "ViniDalvino",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/ViniDalvino/redgif-dl"
+  },
   "license": "ISC"
 }
