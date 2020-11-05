@@ -16,12 +16,14 @@ class RedGifGIF {
 /**
  * 
  * @param {string} url The redgif video you want too download
- * @param {string} output_path The output path 
  * @param {string} file_name The output file name
- * @example dl_redgif("www.google.com", "./video/", "hot");
+ * @param {string} output_path The output path
+ * @example dl_redgif("https://www.redgifs.com/watch/newdrearyblackwidowspider", "blow job", "./downloads")
+ * /.then((path) => console.log(path))
+ * /.catch((reason) => console.error(reason));
  * @returns {Promise<string>} An promise of the downloaded file
  */
-function dl_redgif(url, output_path, file_name) {
+function dlRedGif(url, file_name, output_path = ".") {
     return new Promise((resolve, reject) => {
         if (!xor(url.search("redgif") < 1, url.search("gfycat") < 1))
             reject("Not a redgif URL");
@@ -47,19 +49,28 @@ function dl_redgif(url, output_path, file_name) {
                         let BufferCreationThread = [DownloadedFile[0].buffer(), DownloadedFile[1].buffer()];
                         Promise.all(BufferCreationThread)
                             .then((FileBuffer) => {
-                                let FileCreationThreads = [
-                                    fs.writeFile(`${output_path}${file_name}_hq.mp4`, FileBuffer[0], { encoding: "binary" }),
-                                    fs.writeFile(`${output_path}${file_name}_lq.mp4`, FileBuffer[1], { encoding: "binary" })
-                                ];
+                                let FileCreationThreads;
+                                if (output_path == ".") {
+                                    FileCreationThreads = [
+                                        fs.writeFile(`${file_name}_hq.mp4`, FileBuffer[0], { encoding: "binary" }),
+                                        fs.writeFile(`${file_name}_lq.mp4`, FileBuffer[1], { encoding: "binary" })
+                                    ];
+                                }
+                                else {
+                                    FileCreationThreads = [
+                                        fs.writeFile(`${output_path}${file_name}_hq.mp4`, FileBuffer[0], { encoding: "binary" }),
+                                        fs.writeFile(`${output_path}${file_name}_lq.mp4`, FileBuffer[1], { encoding: "binary" })
+                                    ];
+                                }
 
                                 Promise.all(FileCreationThreads)
                                     .then(() => {
                                         resolve({
                                             HQ: `${output_path}${file_name}_lq.mp4`,
-                                            LQ: `${output_path}${file_name}_lq.mp44`
+                                            LQ: `${output_path}${file_name}_lq.mp4`
                                         });
                                     })
-                                    .catch((reason) => reject(`${reason[0] ?? ""}\n${reason[1] ?? ""}`))
+                                    .catch((reason) => reject(`${reason[0] ?? ""}\n${reason[1] ?? ""}`));
                             })
                             .catch((reason) => {
                                 reject(`${reason[0] ?? ""}\n${reason[1] ?? ""}`);
@@ -71,6 +82,4 @@ function dl_redgif(url, output_path, file_name) {
             .catch(reason => reject(reason));
     });
 }
-module.exports = {
-    dl_redgif
-};
+module.exports = dlRedGif;

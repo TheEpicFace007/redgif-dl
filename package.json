@@ -1,7 +1,7 @@
 {
   "name": "redgif-dl",
   "version": "1.0.0",
-  "description": "Download any video from redgif with sound!",
+  "description": "Download any video from redgif asynchronous with sound!",
   "main": "index.js",
   "dependencies": {
     "alegrify-xor": "^1.0.0",
