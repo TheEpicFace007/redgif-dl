@@ -2,7 +2,7 @@
 Rip any video from redgif with sound
 # Documentation
 
-## `function dlRedGif(url, file_name, output_path = ".")`
+## `function dlRedGif(url, file_name, ?output_path)`
 
  * **Parameters:**
    * `url` — The redgif video you want too download
