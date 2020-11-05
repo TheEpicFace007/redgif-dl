@@ -1,5 +1,5 @@
 # redgif-dl
-Rip any video from redgif with sound
+Rip any video from redgif with sound asyncrnously
 # Documentation
 
 ## `function dlRedGif(url, file_name, ?output_path)`
