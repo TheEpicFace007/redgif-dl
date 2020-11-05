@@ -7,7 +7,7 @@ Rip any video from redgif with sound asyncrnously
  * **Parameters:**
    * `url` — The redgif video you want too download
    * `file_name` — The output file name (automatically append .mp4)
-   * `output_path` — The output path (optional, if none is provided `.` is going to be used)
+   * `output_path` — The output path (optional, if none is provided the current working directory is going to be used)
  * **Example:** 
  ```js
  const dlRedGif = require("redgif-dl")

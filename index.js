@@ -23,7 +23,7 @@ class RedGifGIF {
  * /.catch((reason) => console.error(reason));
  * @returns {Promise<string>} An promise of the downloaded file
  */
-function dlRedGif(url, file_name, output_path = ".") {
+function dlRedGif(url, file_name, output_path = "") {
     return new Promise((resolve, reject) => {
         if (!xor(url.search("redgif") < 1, url.search("gfycat") < 1))
             reject("Not a redgif URL");
@@ -41,29 +41,15 @@ function dlRedGif(url, file_name, output_path = ".") {
 
                 let gif = new RedGifGIF(matching[1]);
                 // downloads the videos
-                let DownloadThread = [];
-                DownloadThread.push(fetch(gif.HQLink));
-                DownloadThread.push(fetch(gif.LQLink));
-                Promise.all(DownloadThread)
+                Promise.all([fetch(gif.LQLink), fetch(gif.HQLink)])
                     .then((DownloadedFile) => {
-                        let BufferCreationThread = [DownloadedFile[0].buffer(), DownloadedFile[1].buffer()];
-                        Promise.all(BufferCreationThread)
+                        Promise.all([DownloadedFile[0].buffer(), DownloadedFile[1].buffer()])
                             .then((FileBuffer) => {
                                 let FileCreationThreads;
-                                if (output_path == ".") {
-                                    FileCreationThreads = [
-                                        fs.writeFile(`${file_name}_hq.mp4`, FileBuffer[0], { encoding: "binary" }),
-                                        fs.writeFile(`${file_name}_lq.mp4`, FileBuffer[1], { encoding: "binary" })
-                                    ];
-                                }
-                                else {
-                                    FileCreationThreads = [
+                                Promise.all([
                                         fs.writeFile(`${output_path}${file_name}_hq.mp4`, FileBuffer[0], { encoding: "binary" }),
                                         fs.writeFile(`${output_path}${file_name}_lq.mp4`, FileBuffer[1], { encoding: "binary" })
-                                    ];
-                                }
-
-                                Promise.all(FileCreationThreads)
+                                    ])
                                     .then(() => {
                                         resolve({
                                             HQ: `${output_path}${file_name}_lq.mp4`,
