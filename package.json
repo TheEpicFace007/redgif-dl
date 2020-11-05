@@ -1,6 +1,6 @@
 {
   "name": "redgif-dl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Download any video from redgif asynchronous with sound!",
   "main": "index.js",
   "dependencies": {
