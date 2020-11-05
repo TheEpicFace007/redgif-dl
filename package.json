@@ -1,0 +1,24 @@
+{
+  "name": "redgif-dl",
+  "version": "1.0.0",
+  "description": "Download any video from redgif with sound!",
+  "main": "index.js",
+  "dependencies": {
+    "alegrify-xor": "^1.0.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "redgif",
+    "gif",
+    "gyficat",
+    "nsfw",
+    "ripper",
+    "youtube-dl"
+  ],
+  "author": "ViniDalvino",
+  "license": "ISC"
+}
