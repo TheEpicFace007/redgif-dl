@@ -8,8 +8,16 @@ class RedGifGIF {
     constructor(gifName) {
         this.GifName = gifName;
 
-        this.HQLink = `https://thcf3.redgifs.com/${this.GifName}.webm`;
-        this.LQLink = `https://thcf2.redgifs.com/${this.GifName}-mobile.mp4`;
+        function getRandInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        let numb = getRandInt(9);
+        do {
+            numb = getRandInt(9);
+        } while (numb == 0)
+        this.HQLink = `https://thcf${numb}.redgifs.com/${this.GifName}.webm`;
+        this.LQLink = `https://thcf${numb}.redgifs.com/${this.GifName}-mobile.mp4`;
     }
 }
 
@@ -50,7 +58,7 @@ function dlRedGif(url, file_name, output_path = "", verbose = false) {
                         Promise.all([DownloadedFile[0].buffer(), DownloadedFile[1].buffer()])
                             .then((FileBuffer) => {
                                 if (verbose)
-                                    console.log("Video downloaed!\nWritting the video to a file")
+                                    console.log("Video downloaed!\nWritting the video to a file");
                                 let FileCreationThreads;
                                 Promise.all([
                                     fs.writeFile(`${output_path}${file_name}_hq.mp4`, FileBuffer[0], { encoding: "binary" }),
